@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Unitat 2. Configuració d'inici amb serveis personalitzats"
+title: "Unitat 2. Configuració d'inici amb serveis personalitzats Windows"
 ---
 
 ## Part 1 - Preparar l'entorn
