@@ -25,9 +25,13 @@ title: "Unitat 2. Configuració d'inici amb serveis personalitzats"
 5. Perquè el sistema pogués enviar correus automàtics, vaig accedir a la configuració del meu compte de Google i vaig crear una contrasenya d’aplicació específica per al script. Això em va permetre connectar-me al servidor SMTP de Gmail de forma segura.    
 ![foto](fotos/4.png)
 
-6. Explicar q fa el script....
+6. Aquesta primera part crea la carpeta i el fitxer de log si no existeixen, defineix quins esdeveniments del sistema, seguretat i PowerShell són sospitosos, i prepara les dades per enviar correus amb Gmail.
 ![foto](fotos/7.png)
+
+7. Segona part: cada pocs segons comprova els esdeveniments nous des de l’última execució, filtrant només els que són importants o sospitosos, evitant errors si no n’hi ha cap.
 ![foto](fotos/8.png)
+
+8. En la tercera i última part si es detecta algun esdeveniment rellevant, escriu la informació detallada al fitxer de log i envia un correu amb un resum i els detalls del que ha passat.
 ![foto](fotos/9.png)
 
 
