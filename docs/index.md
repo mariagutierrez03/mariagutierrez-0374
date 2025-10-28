@@ -17,7 +17,7 @@ L’objectiu és oferir una guia clara i estructurada per a l’aprenentatge i l
 
 #### [Unitat 1. Creació entorn d'arrencada amb systemd Linux](unitat1/unitat1.md)
 
-#### [Unitat 2.](unitat2/unitat2.md)
+#### [Unitat 2. Configuració d'inici amb serveis personalitzats Windows](unitat2/unitat2.md)
 
 #### [Unitat 3.](unitat3/unitat3.md)
 
