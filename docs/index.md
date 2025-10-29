@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "ASIX2 - 0374 - Administració de Sistemes Operatius"
+title: "Introducció"
 ---
 
 ---
