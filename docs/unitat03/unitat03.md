@@ -62,11 +62,11 @@ Amb el codi modificat, el pas següent va ser preparar i iniciar la compilació.
 5. Després, vaig editar l'arxiu .config per fer certes modificacions importants:
 ![foto](fotos/kernel-26.png)
 
-   3.1. Signatura de mòduls: Vaig eliminar els valors dels certificats CONFIG_SYSTEM_TRUSTED_KEYS i CONFIG_SYSTEM_REVOCATION_KEYS. Això es fa sovint per evitar problemes amb les claus de Canonical (Ubuntu) quan es compila un kernel personalitzat.      
+      3.1. Signatura de mòduls: Vaig eliminar els valors dels certificats CONFIG_SYSTEM_TRUSTED_KEYS i CONFIG_SYSTEM_REVOCATION_KEYS. Això es fa sovint per evitar problemes amb les claus de    Canonical (Ubuntu) quan es compila un kernel personalitzat.      
 ![foto](fotos/kernel-16.png)
 ![foto](fotos/kernel-17.png)
 
-   3.2. Informació de depuració (Debug Info): Es van fer diversos canvis relacionats amb la depuració (Debug). La configuració de depuració es va canviar per deshabilitar la informació de depuració detallada. Es va establir CONFIG_DEBUG_INFO=n i CONFIG_DEBUG_INFO_BTF_MODULES=n, ja que mantenir aquestes opcions activades fa que el kernel sigui molt més gran i la compilació molt més lenta.      
+      3.2. Informació de depuració (Debug Info): Es van fer diversos canvis relacionats amb la depuració (Debug). La configuració de depuració es va canviar per deshabilitar la informació de depuració detallada. Es va establir CONFIG_DEBUG_INFO=n i CONFIG_DEBUG_INFO_BTF_MODULES=n, ja que mantenir aquestes opcions activades fa que el kernel sigui molt més gran i la compilació molt més lenta.      
 ![foto](fotos/kernel-25.png)
 
 7. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.     
@@ -79,11 +79,9 @@ make-kpkg --initrd kernel_image kernel_headers exec make kpkg_version=13.018+nmu
 
 L'última fase va ser instal·lar i provar el nou kernel.
 
-1. Després de la compilació, a la carpeta ~/Baixades, es van generar els dos paquets .deb del nou kernel:
-
-   * linux-headers-6.8.6-10.00.Custom_amd64.deb
-
-   * linux-image-6.8.6-10.00.Custom_amd64.deb
+1. Després de la compilació, a la carpeta ~/Baixades, es van generar els dos paquets .deb del nou kernel:      
+   - linux-headers-6.8.6-10.00.Custom_amd64.deb
+   - linux-image-6.8.6-10.00.Custom_amd64.deb
 
 2. A continuació, vaig instal·lar-los utilitzant sudo dpkg -i... . Un cop instal·lat el nou kernel, vaig fer un sudo apt -f install addicional, que va indicar que alguns paquets de l'antic kernel (6.8.0-40-generic) ja no eren necessaris.    
 ![foto](fotos/comp-01.png)
