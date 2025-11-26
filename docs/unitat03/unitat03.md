@@ -80,8 +80,8 @@ make-kpkg --initrd kernel_image kernel_headers exec make kpkg_version=13.018+nmu
 L'última fase va ser instal·lar i provar el nou kernel.
 
 1. Després de la compilació, a la carpeta ~/Baixades, es van generar els dos paquets .deb del nou kernel:      
-   - linux-headers-6.8.6-10.00.Custom_amd64.deb
-   - linux-image-6.8.6-10.00.Custom_amd64.deb
+      - linux-headers-6.8.6-10.00.Custom_amd64.deb
+      - linux-image-6.8.6-10.00.Custom_amd64.deb
 
 2. A continuació, vaig instal·lar-los utilitzant sudo dpkg -i... . Un cop instal·lat el nou kernel, vaig fer un sudo apt -f install addicional, que va indicar que alguns paquets de l'antic kernel (6.8.0-40-generic) ja no eren necessaris.    
 ![foto](fotos/comp-01.png)
