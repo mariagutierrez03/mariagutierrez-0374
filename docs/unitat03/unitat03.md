@@ -10,7 +10,7 @@ title: "Unitat 3. Gestió de kernels i mòduls del sistema Linux"
 
 2. Seguidament, vaig verificar que la partició swap estigués activa utilitzant la comanda swapon --show.    
 ```bash
-groupadd cryptshare
+swapon --show
 ```
 ![foto](fotos/kernel-02.png)
 
@@ -44,7 +44,7 @@ Aquesta part consisteix a fer la modificació real al codi font. Després de can
 ![foto](fotos/patch-02.png)
 ![foto](fotos/patch-03.png)
 
-5. Crear el "patch": Vaig utilitzar la comanda diff -u init/main.c init/main.c.copia > parche-maria.patch25. Aquesta comanda compara l'arxiu original (init/main.c) amb la versió modificada (init/main.c.copia) i guarda les diferències en un arxiu anomenat parche-maria.patch. Aquest fitxer conté només les línies de codi que s'han d'afegir, treure o canviar.      
+5. Crear el "patch": Vaig utilitzar la comanda diff -u init/main.c init/main.c.copia > parche-maria.patch. Aquesta comanda compara l'arxiu original (init/main.c) amb la versió modificada (init/main.c.copia) i guarda les diferències en un arxiu anomenat parche-maria.patch. Aquest fitxer conté només les línies de codi que s'han d'afegir, treure o canviar.      
 ![foto](fotos/patch-04.png)
    
 7. Aplicar el "patch": Amb la comanda patch -p0 < parche-maria.patch, vaig aplicar les modificacions al fitxer original (init/main.c). Finalment, amb grep "Hola" init/main.c, vaig confirmar que la línia pr_notice("Hola, Maria!"); s'havia afegit correctament a l'arxiu original init/main.c.    
@@ -69,8 +69,7 @@ Amb el codi modificat, el pas següent va ser preparar i iniciar la compilació.
 5.2. Informació de depuració (Debug Info): Es van fer diversos canvis relacionats amb la depuració (Debug). La configuració de depuració es va canviar per deshabilitar la informació de depuració detallada. Es va establir CONFIG_DEBUG_INFO=n i CONFIG_DEBUG_INFO_BTF_MODULES=n, ja que mantenir aquestes opcions activades fa que el kernel sigui molt més gran i la compilació molt més lenta.      
 ![foto](fotos/kernel-25.png)
 
-7. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.      
-
+7. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.     
 
 make-kpkg --initrd kernel_image kernel_headers exec make kpkg_version=13.018+nmu2 -f /usr/share/kernel-package/ruleset/minimal.mk debian INITRD=YES. 
 
