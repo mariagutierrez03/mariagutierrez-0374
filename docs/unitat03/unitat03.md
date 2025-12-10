@@ -69,7 +69,7 @@ Amb el codi modificat, el pas següent va ser preparar i iniciar la compilació.
       3.2. Informació de depuració (Debug Info): Es van fer diversos canvis relacionats amb la depuració (Debug). La configuració de depuració es va canviar per deshabilitar la informació de depuració detallada. Es va establir CONFIG_DEBUG_INFO=n i CONFIG_DEBUG_INFO_BTF_MODULES=n, ja que mantenir aquestes opcions activades fa que el kernel sigui molt més gran i la compilació molt més lenta.      
 ![foto](fotos/kernel-25.png)
 
-6. Seguidament, executarem la comanda `make menuconfig`, aquí se'ns obrirà un menú. El nostre objectiu és desactivar una de les opcions, en aqust casa la xarxa, per això haurem de desmarcar la opció TCP/IP Networking de l'apartat Network.
+6. Seguidament, executarem la comanda `make menuconfig`, aquí se'ns obrirà un menú. El nostre objectiu és desactivar una de les opcions, en aquest cas la xarxa, per això haurem de desmarcar la opció TCP/IP Networking de l'apartat Network.
 ![foto](fotos/noves1.png)
 
 8. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.     
