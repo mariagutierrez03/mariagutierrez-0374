@@ -40,15 +40,15 @@ Aquesta part consisteix a fer la modificació real al codi font. Després de can
 1. Copiar l'arxiu original que volia modificar: cp init/main.c init/main.c.copia22.    
 ![foto](fotos/patch-01.png)
 
-3. Modificar la còpia (init/main.c.copia). En l'arxiu, concretament a la funció start_kernel(void), vaig afegir la línia pr_notice("Hola, Maria!"), a la línia 897. Aquesta funció fa que es mostri un missatge al log del sistema quan el kernel arrenca.    
+3. Modificar la còpia (init/main.c.copia). En l'arxiu, concretament a la funció start_kernel(void), vaig afegir la línia pr_notice("..."), a la línia 897. Aquesta funció fa que es mostri un missatge al log del sistema quan el kernel arrenca.    
 ![foto](fotos/patch-02.png)
-![foto](fotos/patch-03.png)
+![foto](fotos/noves3.png)
 
 5. Crear el "patch": Vaig utilitzar la comanda diff -u init/main.c init/main.c.copia > parche-maria.patch. Aquesta comanda compara l'arxiu original (init/main.c) amb la versió modificada (init/main.c.copia) i guarda les diferències en un arxiu anomenat parche-maria.patch. Aquest fitxer conté només les línies de codi que s'han d'afegir, treure o canviar.      
 ![foto](fotos/patch-04.png)
    
-7. Aplicar el "patch": Amb la comanda patch -p0 < parche-maria.patch, vaig aplicar les modificacions al fitxer original (init/main.c). Finalment, amb grep "Hola" init/main.c, vaig confirmar que la línia pr_notice("Hola, Maria!"); s'havia afegit correctament a l'arxiu original init/main.c.    
-![foto](fotos/patch-05.png)
+7. Aplicar el "patch": Amb la comanda patch -p0 < parche-maria.patch, vaig aplicar les modificacions al fitxer original (init/main.c). Finalment, amb grep "Red" init/main.c, vaig confirmar que la línia s'havia afegit correctament a l'arxiu original init/main.c.    
+![foto](fotos/noves2.png)
 
 ## Part 3 - Compilar kernel
 Amb el codi modificat, el pas següent va ser preparar i iniciar la compilació.
@@ -69,7 +69,10 @@ Amb el codi modificat, el pas següent va ser preparar i iniciar la compilació.
       3.2. Informació de depuració (Debug Info): Es van fer diversos canvis relacionats amb la depuració (Debug). La configuració de depuració es va canviar per deshabilitar la informació de depuració detallada. Es va establir CONFIG_DEBUG_INFO=n i CONFIG_DEBUG_INFO_BTF_MODULES=n, ja que mantenir aquestes opcions activades fa que el kernel sigui molt més gran i la compilació molt més lenta.      
 ![foto](fotos/kernel-25.png)
 
-7. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.     
+6. Seguidament, executarem la comanda `make menuconfig`, aquí se'ns obrirà un menú. El nostre objectiu és desactivar una de les opcions, en aqust casa la xarxa, per això haurem de desmarcar la opció TCP/IP Networking de l'apartat Network.
+![foto](fotos/noves1.png)
+
+8. Tot seguit, amb el fitxer .config finalitzat, vaig utilitzar la comanda make-kpkg per compilar i generar els paquets .deb d'instal·lació del kernel de forma simplificada. Aquesta comanda genera l'imatge del kernel (kernel_image), els fitxers de capçaleres (kernel_headers) i inclou el sistema de fitxers inicial initrd. El procés de compilació és llarg i intensiu en recursos.     
 
 make-kpkg --initrd kernel_image kernel_headers exec make kpkg_version=13.018+nmu2 -f /usr/share/kernel-package/ruleset/minimal.mk debian INITRD=YES. 
 
@@ -91,8 +94,9 @@ L'última fase va ser instal·lar i provar el nou kernel.
 ![foto](fotos/comp-03.png)
 ![foto](fotos/comp-04.png)
 
-6. Finalment, vaig reiniciar la màquina virtual o l'ordinador. Al menú GRUB, es pot veure la nova entrada: "Ubuntu, with Linux 6.8.6", cosa que confirmava que el nou kernel es podia arrencar.      
+6. Finalment, vaig reiniciar la màquina virtual o l'ordinador. Al menú GRUB, es pot veure la nova entrada: "Ubuntu, with Linux 6.8.6", cosa que confirmava que el nou kernel es podia arrencar.   
 ![foto](fotos/comp-05.png)
 
-7. Per comprovar la modificació que es va fer al init/main.c, un cop arrencat el nou kernel 6.8.6, vaig utilitzar la comanda: cat /var/log/syslog | grep "Hola". El resultat, Hola, Maria!, a l'inici del log del kernel  demostra que el kernel modificat es va compilar, instal·lar i arrencar correctament, executant el codi personalitzat que es va afegir.    
-![foto](fotos/comp-06.png)
+7. Per comprovar la modificació que es va fer al init/main.c, un cop arrencat el nou kernel 6.8.6, vaig utilitzar la comanda: cat /var/log/syslog | grep "Red". El resultat, a l'inici del log del kernel  demostra que el kernel modificat es va compilar, instal·lar i arrencar correctament, executant el codi personalitzat que es va afegir. A més també revisarem que no tenim l'opció de xarxa.     
+![foto](fotos/noves4.png)
+<img width="1127" height="261" alt="image" src="https://github.com/user-attachments/assets/1567ae3e-291c-4c85-8501-53c6d6283218" />
