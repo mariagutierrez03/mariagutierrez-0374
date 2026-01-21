@@ -21,9 +21,9 @@ L’objectiu és oferir una guia clara i estructurada per a l’aprenentatge i l
 
 #### [Unitat 3. Gestió de kernels i mòduls del sistema Linux](unitat03/unitat03.md)
 
-#### [Unitat 4. Servidor d’impressió amb Windows i control d’accés per domini](unitat04/unitat04.md)
+#### [Unitat 4. RSAT, VPN i RDP](unitat04/unitat04.md)
 
-#### [Unitat 5. Servidor d’impressió a Ubuntu amb CUPS/Samba](unitat05/unitat05.md)
+#### [Unitat 5. Automatització funcional adaptada al context d'ús Windows](unitat05/unitat05.md)
 
 #### [Unitat 6. Connexió de clients Windows i Ubuntu a servidors d’impressió heterogenis](unitat06/unitat06.md)
 
