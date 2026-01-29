@@ -36,82 +36,66 @@ Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windo
 
 ## 1. Instal·lació i preparació del servei IIS
 
-El primer pas és instal·lar el rol de servidor **IIS (Internet Information Services)**. Durant l'assistent d'instal·lació, mantindrem totes les opcions predeterminades. Un cop instal·lat, el fitxer HTML per defecte es troba a la ruta oficial de Windows Server: `C:\inetpub\wwwroot`.
-
+1. El primer pas és instal·lar el rol de servidor **IIS (Internet Information Services)**. Durant l'assistent d'instal·lació, mantindrem totes les opcions predeterminades. Un cop instal·lat, el fitxer HTML per defecte es troba a la ruta oficial de Windows Server: `C:\inetpub\wwwroot`.      
 ![foto](fotos/conf01.png)
 
 ### Neteja i personalització del lloc
-Un cop som dins de la ruta esmentada, eliminarem els fitxers que el sistema crea per defecte per deixar directori net.
-
+2. Un cop som dins de la ruta esmentada, eliminarem els fitxers que el sistema crea per defecte per deixar directori net.      
 ![foto](fotos/conf02.png)
 
-A continuació, crearem un nou fitxer anomenat `index.html` i l'editarem amb el codi HTML necessari per personalitzar la nostra pàgina web.
-
+3. A continuació, crearem un nou fitxer anomenat `index.html` i l'editarem amb el codi HTML necessari per personalitzar la nostra pàgina web.      
 ![foto](fotos/conf03.png)
 ![foto](fotos/conf04.png)
 
 ### Verificació inicial
-Un cop configurat el fitxer, el visualitzarem fent doble clic per assegurar-nos que el disseny és correcte.
-
+4. Un cop configurat el fitxer, el visualitzarem fent doble clic per assegurar-nos que el disseny és correcte.        
 ![foto](fotos/conf05.png)
 
-També comprovarem que el servei web respon correctament introduint l'adreça IP del propi servidor al navegador.
-
+5. També comprovarem que el servei web respon correctament introduint l'adreça IP del propi servidor al navegador.      
 ![foto](fotos/conf06.png)
 
 ## 2. Configuració del Servidor DNS
 
-Si intentem accedir al lloc web mitjançant el nom de domini configurat a l'IIS (en aquest cas, `mariagutierrez`), veurem que no es reconeix. Això passa perquè cal configurar el servei **DNS** per resoldre el nom i associar-lo a la IP `192.168.2.101`.
-
+1. Si intentem accedir al lloc web mitjançant el nom de domini configurat a l'IIS (en aquest cas, `mariagutierrez`), veurem que no es reconeix. Això passa perquè cal configurar el servei **DNS** per resoldre el nom i associar-lo a la IP `192.168.2.101`.      
 ![foto](fotos/conf07.png)
 
-Dins de la consola de configuració del DNS, afegirem un nou **Host (A)** a la zona existent. Aquest registre apuntarà el nom `mariagutierrez` directament a la IP del servidor.
-
+2. Dins de la consola de configuració del DNS, afegirem un nou **Host (A)** a la zona existent. Aquest registre apuntarà el nom `mariagutierrez` directament a la IP del servidor.      
 ![foto](fotos/conf08.png)
 
 ### Proves de connectivitat DNS
-Comprobarem que el domini respon correctament fent un `ping`. Així mateix, utilitzarem l'eina `nslookup` per confirmar que el servidor DNS retorna la IP correcta.
-
+3. Comprobarem que el domini respon correctament fent un `ping`. Així mateix, utilitzarem l'eina `nslookup` per confirmar que el servidor DNS retorna la IP correcta.      
 ![foto](fotos/conf09.png)
 
 ## 3. Enllaços de lloc a l'IIS
 
-Dins de la configuració de l'IIS, verificarem que existeix un enllaç (*binding*) actiu per al protocol **HTTP** a través del port **80** per a qualsevol adreça IP.
-
+1. Dins de la configuració de l'IIS, verificarem que existeix un enllaç (*binding*) actiu per al protocol **HTTP** a través del port **80** per a qualsevol adreça IP.    
 ![foto](fotos/conf10.png)
 
-Si tornem al navegador i cerquem `http://mariagutierrez`, ara podrem observar que el domini funciona correctament i visualitzem el nostre fitxer HTML.
-
+2. Si tornem al navegador i cerquem `http://mariagutierrez`, ara podrem observar que el domini funciona correctament i visualitzem el nostre fitxer HTML.      
 ![foto](fotos/conf11.png)
 
 ## 4. Instal·lació de l'Entitat de Certificació (CA)
 
-Per implementar seguretat al lloc, instal·larem el servei de certificats al servidor.
-
+1. Per implementar seguretat al lloc, instal·larem el servei de certificats al servidor.      
 ![foto](fotos/conf12.png)
 
-És fonamental marcar totes les opcions de configuració, sent l'**Entitat de certificació** la més important per a aquest procés.
-
+2. És fonamental marcar totes les opcions de configuració, sent l'**Entitat de certificació** la més important per a aquest procés.      
 ![foto](fotos/conf13.png)
 
 ## 5. Creació de la Plantilla de Certificat SAN
 
-Els navegadors actuals requereixen l'ús del paràmetre **SAN (Subject Alternative Name)**. Com que la plantilla bàsica del sistema no el contempla per defecte, haurem de crear-ne una de personalitzada duplicant la plantilla de "Servidor web".
-
+1. Els navegadors actuals requereixen l'ús del paràmetre **SAN (Subject Alternative Name)**. Com que la plantilla bàsica del sistema no el contempla per defecte, haurem de crear-ne una de personalitzada duplicant la plantilla de "Servidor web".      
 ![foto](fotos/conf14.png)
 ![foto](fotos/conf15.png)
 
-Assignarem un nom identificatiu a la nova plantilla, com per exemple `WebServer-SAN`.
-
+2. Assignarem un nom identificatiu a la nova plantilla, com per exemple `WebServer-SAN`.      
 ![foto](fotos/conf16.png)
 
-Ajustarem la compatibilitat de l'entitat de certificació i del destinatari seguint els estàndards de **Windows Server 2016**.
-
+3. Ajustarem la compatibilitat de l'entitat de certificació i del destinatari seguint els estàndards de **Windows Server 2016**.      
 ![foto](fotos/conf17.png)
 
 ### Permisos de la plantilla
-És imprescindible configurar correctament els permisos de seguretat; el grup **Equips del domini** ha de tenir permisos d'accés i lectura.
-
+4. És imprescindible configurar correctament els permisos de seguretat; el grup **Equips del domini** ha de tenir permisos d'accés i lectura.      
 ![foto](fotos/conf18.png)
 ![foto](fotos/conf19.png)
 ![foto](fotos/conf20.png)
@@ -121,23 +105,18 @@ Ajustarem la compatibilitat de l'entitat de certificació i del destinatari segu
 
 ## 6. Generació del fitxer de sol·licitud (.inf)
 
-Crearem un fitxer de configuració anomenat `web.inf` a l'arrel de la unitat `C:`.
-
+1. Crearem un fitxer de configuració anomenat `web.inf` a l'arrel de la unitat `C:`.      
 ![foto](fotos/conf24.png)
 
-Aquest fitxer contindrà les comandes i paràmetres específics necessaris per generar el certificat amb el format correcte.
-
+2. Aquest fitxer contindrà les comandes i paràmetres específics necessaris per generar el certificat amb el format correcte.      
 ![foto](fotos/conf25.png)
 
 ## 7. Configuració final i emissió del certificat
-
-Per completar la instal·lació, anirem a l'avís de configuració post-instal·lació (triangle groc) i iniciarem l'assistent.
-
+1. Per completar la instal·lació, anirem a l'avís de configuració post-instal·lació (triangle groc) i iniciarem l'assistent.      
 ![foto](fotos/conf26.png)
 ![foto](fotos/conf27.png)
 
-Seleccionarem l'Entitat de Certificació i finalitzarem l'assistent prement "Següent" en totes les pantalles.
-
+2. Seleccionarem l'Entitat de Certificació i finalitzarem l'assistent prement "Següent" en totes les pantalles.      
 ![foto](fotos/conf28.png)
 ![foto](fotos/conf29.png)
 ![foto](fotos/conf30.png)
@@ -150,38 +129,32 @@ Seleccionarem l'Entitat de Certificació i finalitzarem l'assistent prement "Seg
 ![foto](fotos/conf37.png)
 
 ### Publicació de la plantilla
-Dins de la consola `certsrv.msc`, sota el node `MARIA-MARIA-CA`, farem clic dret a "Plantillas de certificado" > "Nuevo" > "Plantilla de certificado que se va a emitir". Triarem la nostra plantilla `WebServer-SAN`.
-
+3. Dins de la consola `certsrv.msc`, sota el node `MARIA-MARIA-CA`, farem clic dret a "Plantillas de certificado" > "Nuevo" > "Plantilla de certificado que se va a emitir". Triarem la nostra plantilla `WebServer-SAN`.      
 ![foto](fotos/conf38.png)
 ![foto](fotos/conf39.png)
 
 ## 8. Sol·licitud i instal·lació mitjançant CMD
 
-Executarem el Símbol del Sistema (**CMD**) com a administrador per realitzar la sol·licitud formal utilitzant la plantilla creada.
-
+1. Executarem el Símbol del Sistema (**CMD**) com a administrador per realitzar la sol·licitud formal utilitzant la plantilla creada.      
 ![foto](fotos/conf40.png)
 
-Enviarem la sol·licitud a l'entitat certificadora `MARIA-MARIA-CA`.
-
+2. Enviarem la sol·licitud a l'entitat certificadora `MARIA-MARIA-CA`.      
 ![foto](fotos/conf41.png)
 
-Un cop rebuda la resposta, procedirem amb la instal·lació del certificat al magatzem local del servidor.
-
+3. Un cop rebuda la resposta, procedirem amb la instal·lació del certificat al magatzem local del servidor.  
 ![foto](fotos/conf42.png)
 
 ## 9. Implementació d'HTTPS al lloc web
 
-Finalment, tornarem a la consola d'administració de l'IIS. En l'apartat "Agregar enlace de sitio", seleccionarem el tipus **https**, port **443**, i assignarem el certificat SSL que acabem de generar per a `mariagutierrez`.
-
+1. Finalment, tornarem a la consola d'administració de l'IIS. En l'apartat "Agregar enlace de sitio", seleccionarem el tipus **https**, port **443**, i assignarem el certificat SSL que acabem de generar per a `mariagutierrez`.      
 ![foto](fotos/conf43.png)
 
 ### Comprovació final
-Ara podem confirmar que el lloc web és totalment funcional sota el protocol segur **HTTPS**, garantint una connexió xifrada.
-
+2. Ara podem confirmar que el lloc web és totalment funcional sota el protocol segur **HTTPS**, garantint una connexió xifrada.      
 ![foto](fotos/conf44.png)
 
-13. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
+3. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
 
-14. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.      
+4. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.      
 
 ---
