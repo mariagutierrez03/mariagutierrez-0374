@@ -38,41 +38,41 @@ Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windo
 
 El primer pas és instal·lar el rol de servidor **IIS (Internet Information Services)**. Durant l'assistent d'instal·lació, mantindrem totes les opcions predeterminades. Un cop instal·lat, el fitxer HTML per defecte es troba a la ruta oficial de Windows Server: `C:\inetpub\wwwroot`.
 
-![foto](fotos/conf1.png)
+![foto](fotos/conf01.png)
 
 ### Neteja i personalització del lloc
 Un cop som dins de la ruta esmentada, eliminarem els fitxers que el sistema crea per defecte per deixar directori net.
 
-![foto](fotos/conf2.png)
+![foto](fotos/conf02.png)
 
 A continuació, crearem un nou fitxer anomenat `index.html` i l'editarem amb el codi HTML necessari per personalitzar la nostra pàgina web.
 
-![foto](fotos/conf3.png)
-![foto](fotos/conf4.png)
+![foto](fotos/conf03.png)
+![foto](fotos/conf04.png)
 
 ### Verificació inicial
 Un cop configurat el fitxer, el visualitzarem fent doble clic per assegurar-nos que el disseny és correcte.
 
-![foto](fotos/conf5.png)
+![foto](fotos/conf05.png)
 
 També comprovarem que el servei web respon correctament introduint l'adreça IP del propi servidor al navegador.
 
-![foto](fotos/conf6.png)
+![foto](fotos/conf06.png)
 
 ## 2. Configuració del Servidor DNS
 
 Si intentem accedir al lloc web mitjançant el nom de domini configurat a l'IIS (en aquest cas, `mariagutierrez`), veurem que no es reconeix. Això passa perquè cal configurar el servei **DNS** per resoldre el nom i associar-lo a la IP `192.168.2.101`.
 
-![foto](fotos/conf7.png)
+![foto](fotos/conf07.png)
 
 Dins de la consola de configuració del DNS, afegirem un nou **Host (A)** a la zona existent. Aquest registre apuntarà el nom `mariagutierrez` directament a la IP del servidor.
 
-![foto](fotos/conf8.png)
+![foto](fotos/conf08.png)
 
 ### Proves de connectivitat DNS
 Comprobarem que el domini respon correctament fent un `ping`. Així mateix, utilitzarem l'eina `nslookup` per confirmar que el servidor DNS retorna la IP correcta.
 
-![foto](fotos/conf9.png)
+![foto](fotos/conf09.png)
 
 ## 3. Enllaços de lloc a l'IIS
 
