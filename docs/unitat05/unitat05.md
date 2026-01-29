@@ -61,44 +61,44 @@ Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windo
 
 2. Dins de la consola de configuració del DNS, afegirem un nou **Host (A)** a la zona existent. Aquest registre apuntarà el nom `mariagutierrez` directament a la IP del servidor.      
 ![foto](fotos/conf08.png)
+![foto](fotos/conf09.png)
 
 ### Proves de connectivitat DNS
 3. Comprobarem que el domini respon correctament fent un `ping`. Així mateix, utilitzarem l'eina `nslookup` per confirmar que el servidor DNS retorna la IP correcta.      
-![foto](fotos/conf09.png)
+![foto](fotos/conf10.png)
+![foto](fotos/conf11.png)
+![foto](fotos/conf12.png)
 
 ## 3. Enllaços de lloc a l'IIS
 
 1. Dins de la configuració de l'IIS, verificarem que existeix un enllaç (*binding*) actiu per al protocol **HTTP** a través del port **80** per a qualsevol adreça IP.    
-![foto](fotos/conf10.png)
+![foto](fotos/conf13.png)
 
 2. Si tornem al navegador i cerquem `http://mariagutierrez`, ara podrem observar que el domini funciona correctament i visualitzem el nostre fitxer HTML.      
-![foto](fotos/conf11.png)
+![foto](fotos/conf14.png)
 
 ## 4. Instal·lació de l'Entitat de Certificació (CA)
 
 1. Per implementar seguretat al lloc, instal·larem el servei de certificats al servidor.      
-![foto](fotos/conf12.png)
+![foto](fotos/conf15.png)
 
 2. És fonamental marcar totes les opcions de configuració, sent l'**Entitat de certificació** la més important per a aquest procés.      
-![foto](fotos/conf13.png)
+![foto](fotos/conf16.png)
 
 ## 5. Creació de la Plantilla de Certificat SAN
 
 1. Els navegadors actuals requereixen l'ús del paràmetre **SAN (Subject Alternative Name)**. Com que la plantilla bàsica del sistema no el contempla per defecte, haurem de crear-ne una de personalitzada duplicant la plantilla de "Servidor web".      
-![foto](fotos/conf14.png)
-![foto](fotos/conf15.png)
+![foto](fotos/conf17.png)
+![foto](fotos/conf18.png)
 
 2. Assignarem un nom identificatiu a la nova plantilla, com per exemple `WebServer-SAN`.      
-![foto](fotos/conf16.png)
+![foto](fotos/conf19.png)
 
 3. Ajustarem la compatibilitat de l'entitat de certificació i del destinatari seguint els estàndards de **Windows Server 2016**.      
-![foto](fotos/conf17.png)
+![foto](fotos/conf20.png)
 
 ### Permisos de la plantilla
 4. És imprescindible configurar correctament els permisos de seguretat; el grup **Equips del domini** ha de tenir permisos d'accés i lectura.      
-![foto](fotos/conf18.png)
-![foto](fotos/conf19.png)
-![foto](fotos/conf20.png)
 ![foto](fotos/conf21.png)
 ![foto](fotos/conf22.png)
 ![foto](fotos/conf23.png)
@@ -130,28 +130,29 @@ Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windo
 
 ### Publicació de la plantilla
 3. Dins de la consola `certsrv.msc`, sota el node `MARIA-MARIA-CA`, farem clic dret a "Plantillas de certificado" > "Nuevo" > "Plantilla de certificado que se va a emitir". Triarem la nostra plantilla `WebServer-SAN`.      
-![foto](fotos/conf38.png)
 ![foto](fotos/conf39.png)
+![foto](fotos/conf40.png)
 
 ## 8. Sol·licitud i instal·lació mitjançant CMD
 
 1. Executarem el Símbol del Sistema (**CMD**) com a administrador per realitzar la sol·licitud formal utilitzant la plantilla creada.      
-![foto](fotos/conf40.png)
-
-2. Enviarem la sol·licitud a l'entitat certificadora `MARIA-MARIA-CA`.      
 ![foto](fotos/conf41.png)
 
-3. Un cop rebuda la resposta, procedirem amb la instal·lació del certificat al magatzem local del servidor.  
+2. Enviarem la sol·licitud a l'entitat certificadora `MARIA-MARIA-CA`.      
 ![foto](fotos/conf42.png)
+![foto](fotos/conf38.png)
+
+4. Un cop rebuda la resposta, procedirem amb la instal·lació del certificat al magatzem local del servidor.  
+![foto](fotos/conf43.png)
 
 ## 9. Implementació d'HTTPS al lloc web
 
 1. Finalment, tornarem a la consola d'administració de l'IIS. En l'apartat "Agregar enlace de sitio", seleccionarem el tipus **https**, port **443**, i assignarem el certificat SSL que acabem de generar per a `mariagutierrez`.      
-![foto](fotos/conf43.png)
+![foto](fotos/conf44.png)
 
 ### Comprovació final
 2. Ara podem confirmar que el lloc web és totalment funcional sota el protocol segur **HTTPS**, garantint una connexió xifrada.      
-![foto](fotos/conf44.png)
+
 
 3. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
 
