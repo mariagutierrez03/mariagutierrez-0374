@@ -29,6 +29,9 @@ title: "Unitat 5. Automatització funcional adaptada al context d'ús Windows"
 10. A continuació, el script configura PAM per permetre que els usuaris del domini puguin iniciar sessió a Ubuntu amb interfície gràfica. Aquesta configuració crea automàticament el directori personal dels usuaris quan inicien sessió per primera vegada, evitant errors i assegurant que cada usuari tingui el seu entorn complet.      
 
 11. Després d’executar el script, el sistema mostra els usuaris del domini detectats, cosa que permet comprovar que Ubuntu ha reconegut correctament els comptes abans de provar-los a la interfície gràfica.
+12. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
+
+13. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.    
 
 # Configuració de Servidor Web IIS amb Certificat SSL (SAN)
 
@@ -152,10 +155,10 @@ Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windo
 
 ### Comprovació final
 2. Ara podem confirmar que el lloc web és totalment funcional sota el protocol segur **HTTPS**, garantint una connexió xifrada.      
+![foto](fotos/conf45.png)
+![foto](fotos/conf46.png)
+![foto](fotos/conf47.png)
 
-
-3. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
-
-4. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.      
+  
 
 ---
