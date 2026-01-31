@@ -5,35 +5,135 @@ title: "Unitat 5. Automatització funcional adaptada al context d'ús Windows"
 
 ---
 
-## Part 1 - Afegir el client Ubuntu amb script AD
+# Part 1 - Afegir el client Ubuntu amb script AD
 
 1. El primer pas és obrir un editor de text amb permisos d’administrador i crear un fitxer que contindrà el script. Aquest fitxer serà el que automatitzarà tot el procés per unir Ubuntu al domini MARIA.local.        
-![foto](fotos/winVPN1.png)
-![foto](fotos/winVPN2.png)
-![foto](fotos/winVPN3.png)
+![foto](fotos/linad9.png)
+![foto](fotos/linad10.png)
+![foto](fotos/linad8.png)
+![foto](fotos/linad7.png)
+![foto](fotos/linad1.png)
 
-3. Un cop creat el fitxer, dins d’aquest es defineixen les variables d’entorn, com el nom del domini, la IP i el nom complet del servidor de domini, i l’usuari administrador. Aquestes variables permeten que totes les accions del script utilitzin la mateixa informació sense necessitat de canvis manuals.      
+3. Un cop creat el fitxer, dins d’aquest es defineixen les variables d’entorn, com el nom del domini, la IP del controlador de domini i l’usuari administrador. També es detecta automàticament el nom de l'equip i s'identifiquen les targetes de xarxa interna i externa. Aquestes variables permeten que totes les accions del script utilitzin la mateixa informació sense necessitat de canvis manuals.      
+```
+#!/bin/bash
 
-4. El següent pas comprova que l’usuari que executa el script té permisos d’administrador. Si no és així, el script s’atura i mostra un missatge d’error, ja que moltes de les accions necessiten privilegis elevats.      
+#############################################
+# CONFIGURACIÓ DEL ENTORN
+#############################################
+DOMINI="MARIA.local"
+DC_IP="192.168.2.101" 
+AD_ADMIN="Administrador" 
+# COGEMOS EL HOSTNAME ACTUAL DEL SISTEMA
+ACTUAL_HOSTNAME=$(hostname)
+INT_IF="enp0s3"  # INTERNA (DC)
+EXT_IF="enp0s8"  # EXTERNA (Internet)
+```
+4. El següent pas comprova que l’usuari que executa el script té permisos d’administrador (root). Si no és així, el script s’atura i mostra un missatge d’error, ja que la instal·lació de paquets i la modificació de fitxers de sistema necessiten privilegis elevats.
+```
+if [[ $EUID -ne 0 ]]; then
+   echo "❌ Executa aquest script com a root"
+   exit 1
+fi
+```
+5. Tot seguit, el script realitza una neteja de possibles unions prèvies i prepara la xarxa per a la instal·lació. Atura la targeta interna per evitar conflictes de rutes i configura un DNS extern (8.8.8.8) per garantir la sortida a Internet. Després, descarrega i instal·la el conjunt d'eines format per Realmd, SSSD i Adcli, que és el programari modern que permet que Ubuntu es pugui unir a un domini Windows i gestionar l'autenticació de manera segura.      
+```
+echo "🚀 Iniciant unió corregida a $DOMINI (Equip: $ACTUAL_HOSTNAME)"
 
-5. Tot seguit, el script configura el DNS i el domini al sistema Ubuntu. Afegeix la IP del servidor de domini com a servidor DNS i defineix el domini principal, i després reinicia el servei de resolució de noms perquè aquests canvis tinguin efecte immediat. Això permet que Ubuntu pugui resoldre correctament els noms dels equips i serveis del domini.      
+# --- NETEJA PREVIA (Per evitar l'error de "Ja es va unir") ---
+realm leave $DOMINI 2>/dev/null
+rm -f /etc/krb5.keytab
 
-6. La següent secció actualitza la configuració del sistema per reconèixer millor el servidor de domini. Modifica els fitxers necessaris perquè Ubuntu consulti el DNS quan resol noms d’equips i comprova que existeixi una entrada amb la IP i el nom complet del servidor de domini, afegint-la si cal. Això assegura que qualsevol servei o comanda pugui localitzar correctament el controlador del domini.      
+#############################################
+# 1. PREPARAR RED PARA INSTALACIÓN
+#############################################
+echo "📌 Prioritzant internet per $EXT_IF..."
+ip link set $INT_IF down
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
 
-7. Després, el script comprova que hi hagi connectivitat amb el servidor de domini. Fa proves per verificar que l’Ubuntu pot comunicar-se amb el servidor i que el nom del domini es resol correctament. Si alguna comprovació falla, el script s’atura per evitar errors posteriors en la unió al domini.      
+apt-get update -o Acquire::ForceIPv4=true
+apt-get install -y realmd sssd sssd-tools adcli samba-common-bin packagekit ntpdate
+```
+6. La següent secció restaura la connectivitat amb la xarxa interna per poder localitzar el controlador de domini. El script actualitza el fitxer de resolució de noms perquè apunti a la IP del servidor de domini i utilitza la comanda ntpdate per sincronitzar l'hora de l'Ubuntu amb la del servidor Windows. Aquesta sincronització és imprescindible perquè el protocol d'autenticació Kerberos funcioni correctament.       
+```
+#############################################
+# 2. PREPARAR RED PARA UNIÓN
+#############################################
+echo "📌 Connectant a la xarxa interna i sincronitzant hora..."
+ip link set $INT_IF up
+sleep 3 # Donem una mica més de temps perquè la IP interna s'assigni
 
-8. La següent secció descarrega i instal·la PBIS Open, el programari que permet que Ubuntu es pugui unir a un domini Windows. Aquesta part prepara el sistema i facilita la unió automàtica sense haver de fer configuracions manuals.      
+# Configurem DNS per veure el DC
+echo -e "nameserver $DC_IP\nsearch $DOMINI" > /etc/resolv.conf
 
-9. Tot seguit, el script uneix l’ordinador al domini amb l’usuari administrador. Durant aquest pas, el sistema demana la contrasenya de l’usuari, i si tot és correcte, mostra un missatge indicant que l’equip s’ha unit amb èxit al domini.      
+# Sincronització horària (fonamental per Kerberos)
+ntpdate -u $DC_IP
+```    
+9. Tot seguit, el script executa la unió oficial de l’ordinador al domini utilitzant l'eina realm. Durant aquest pas, el sistema demanarà la contrasenya de l’administrador del domini Windows. S'inclou un control d'errors que atura el procés si la unió no s'ha pogut completar, assegurant que no es continuï amb una configuració defectuosa.
+```
+#############################################
+# 3. UNIÓ AL DOMINI
+#############################################
+echo "📌 Intentant unir al domini com a $ACTUAL_HOSTNAME... INTRODUEIX CONTRASENYA:"
+realm join --user=$AD_ADMIN --verbose $DOMINI
 
-10. A continuació, el script configura PAM per permetre que els usuaris del domini puguin iniciar sessió a Ubuntu amb interfície gràfica. Aquesta configuració crea automàticament el directori personal dels usuaris quan inicien sessió per primera vegada, evitant errors i assegurant que cada usuari tingui el seu entorn complet.      
+if [[ $? -ne 0 ]]; then
+   echo "❌ ERROR: No s'ha pogut unir al domini."
+   exit 1
+fi
+```
+11. A continuació, el script configura el servei SSSD i el sistema PAM per gestionar l'inici de sessió. Es crea un fitxer de configuració que permet als usuaris entrar amb el seu nom d'usuari de Windows (sense haver d'escriure el domini complet) i s'activa la creació automàtica del directori personal (/home) per a cada usuari del domini quan accedeixi per primera vegada, ja sigui per consola o per interfície gràfica.      
+```
+#############################################
+# 4. CONFIGURACIÓ FINAL
+#############################################
+echo "📌 Configurant SSSD i PAM..."
+pam-auth-update --enable mkhomedir
 
-11. Després d’executar el script, el sistema mostra els usuaris del domini detectats, cosa que permet comprovar que Ubuntu ha reconegut correctament els comptes abans de provar-los a la interfície gràfica.
-12. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
+cat <<EOF > /etc/sssd/sssd.conf
+[sssd]
+domains = $DOMINI
+config_file_version = 2
+services = nss, pam
 
-13. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.    
+[domain/$DOMINI]
+ad_domain = $DOMINI
+krb5_realm = ${DOMINI^^}
+realmd_tags = manages-system joined-with-adcli 
+cache_credentials = True
+id_provider = ad
+krb5_store_password_if_offline = True
+default_shell = /bin/bash
+ldap_id_mapping = True
+use_fully_qualified_names = False
+fallback_homedir = /home/%u
+access_provider = ad
+EOF
 
-# Configuració de Servidor Web IIS amb Certificat SSL (SAN)
+chmod 600 /etc/sssd/sssd.conf
+systemctl restart sssd
+
+echo "-------------------------------------------------------"
+echo "✅ EQUIP $ACTUAL_HOSTNAME UNIT CORRECTAMENT A $DOMINI"
+echo "🎉 Prova ara: id $AD_ADMIN"
+echo "-------------------------------------------------------"
+```
+12. Després d’executar el script, el sistema mostra els usuaris del domini detectats, cosa que permet comprovar que Ubuntu ha reconegut correctament els comptes abans de provar-los a la interfície gràfica.
+![foto](fotos/linad3.png)
+![foto](fotos/linad2.png)
+![foto](fotos/linad4.png)
+![foto](fotos/linad5.png)
+
+14. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
+![foto](fotos/linad13.png)
+![foto](fotos/linad12.png)
+![foto](fotos/linad11.png)
+![foto](fotos/linad14.png)
+
+16. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.    
+![foto](fotos/linad6.png)
+
+# Part 2 - Configuració de Servidor Web IIS amb Certificat SSL (SAN)
 
 Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windows Server 2022, la resolució de noms mitjançant DNS i la implementació de seguretat HTTPS amb plantilles personalitzades.
 
