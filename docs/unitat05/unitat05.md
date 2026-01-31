@@ -118,7 +118,7 @@ echo "✅ EQUIP $ACTUAL_HOSTNAME UNIT CORRECTAMENT A $DOMINI"
 echo "🎉 Prova ara: id $AD_ADMIN"
 echo "-------------------------------------------------------"
 ```
-12. Després d’executar el script, el sistema mostra els usuaris del domini detectats, cosa que permet comprovar que Ubuntu ha reconegut correctament els comptes abans de provar-los a la interfície gràfica.
+12. Després d’executar el script, el sistema mostra els usuaris del domini detectats, cosa que permet comprovar que Ubuntu ha reconegut correctament els comptes abans de provar-los a la interfície gràfica.         
 ![foto](fotos/linad3.png)
 ![foto](fotos/linad2.png)
 ![foto](fotos/linad4.png)
@@ -132,6 +132,8 @@ echo "-------------------------------------------------------"
 
 16. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.    
 ![foto](fotos/linad6.png)
+
+---
 
 # Part 2 - Configuració de Servidor Web IIS amb Certificat SSL (SAN)
 
