@@ -185,7 +185,7 @@ sudo systemctl restart apache2
 ```
 ![foto](fotos/web27.png)
 
-16. Ara que el servidor està configurat, verificarem el funcionament accedint des del navegador. Primer, prova amb `http://mariagutierrez-linux.com`, que hauria de mostrar la pàgina `phpinfo()` sense problemes. Després, accedeix a `https://mariagutierrez-linux.com`. En aquest segon cas, és normal que el navegador mostri un avís de seguretat dient "La teva connexió no és privada". Això passa perquè el certificat SSL l'hem creat nosaltres mateixos (autofirmat) i no està emès per una autoritat certificadora reconeguda. Haurem de fer clic a "Avançat" i després a "Continuar a..." per acceptar el risc i visualitzar el lloc web de manera segura.
+16. Ara que el servidor està configurat, verificarem el funcionament accedint des del navegador. Primer, prova amb `http://mariagutierrez-linux.com`, que hauria de mostrar la pàgina `phpinfo()` sense problemes. Després, accedim a `https://mariagutierrez-linux.com`. En aquest segon cas, és normal que el navegador mostri un avís de seguretat dient "La teva connexió no és privada". Això passa perquè el certificat SSL l'hem creat nosaltres mateixos (autofirmat) i no està emès per una autoritat certificadora reconeguda. Haurem de fer clic a "Avançat" i després a "Continuar a..." per acceptar el risc i visualitzar el lloc web de manera segura.
 ![foto](fotos/web28.png)
 ![foto](fotos/web29.png)
 ![foto](fotos/web30.png)
