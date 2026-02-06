@@ -5,7 +5,7 @@ title: "Unitat 5. Automatització funcional adaptada al context d'ús Windows"
 
 ---
 
-# Part 1 - Afegir el client Ubuntu amb script AD
+## Part 1 - Afegir el client Ubuntu amb script AD
 
 1. El primer pas és obrir un editor de text amb permisos d’administrador i crear un fitxer que contindrà el script. Aquest fitxer serà el que automatitzarà tot el procés per unir Ubuntu al domini MARIA.local.        
 ![foto](fotos/linad9.png)
