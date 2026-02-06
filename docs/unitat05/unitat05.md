@@ -27,7 +27,7 @@ ACTUAL_HOSTNAME=$(hostname)
 INT_IF="enp0s3"  # INTERNA (DC)
 EXT_IF="enp0s8"  # EXTERNA (Internet)
 ```
-4. El següent pas comprova que l’usuari que executa el script té permisos d’administrador (root). Si no és així, el script s’atura i mostra un missatge d’error, ja que la instal·lació de paquets i la modificació de fitxers de sistema necessiten privilegis elevats.
+4. El següent pas comprova que l’usuari que executa el script té permisos d’administrador (root). Si no és així, el script s’atura i mostra un missatge d’error, ja que la instal·lació de paquets i la modificació de fitxers de sistema necessiten privilegis elevats.      
 ```
 if [[ $EUID -ne 0 ]]; then
    echo "❌ Executa aquest script com a root"
@@ -67,7 +67,7 @@ echo -e "nameserver $DC_IP\nsearch $DOMINI" > /etc/resolv.conf
 # Sincronització horària (fonamental per Kerberos)
 ntpdate -u $DC_IP
 ```    
-9. Tot seguit, el script executa la unió oficial de l’ordinador al domini utilitzant l'eina realm. Durant aquest pas, el sistema demanarà la contrasenya de l’administrador del domini Windows. S'inclou un control d'errors que atura el procés si la unió no s'ha pogut completar, assegurant que no es continuï amb una configuració defectuosa.
+9. Tot seguit, el script executa la unió oficial de l’ordinador al domini utilitzant l'eina realm. Durant aquest pas, el sistema demanarà la contrasenya de l’administrador del domini Windows. S'inclou un control d'errors que atura el procés si la unió no s'ha pogut completar, assegurant que no es continuï amb una configuració defectuosa.      
 ```
 #############################################
 # 3. UNIÓ AL DOMINI
@@ -122,20 +122,18 @@ echo "-------------------------------------------------------"
 ![foto](fotos/linad4.png)
 ![foto](fotos/linad5.png)
 
-14. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.    
+14. Un cop completat tot, es poden fer proves iniciant sessió amb un usuari del domini. Si tot funciona bé, Ubuntu crearà automàticament el directori personal de l’usuari i permetrà l’accés.       
 ![foto](fotos/linad13.png)
 ![foto](fotos/linad12.png)
 ![foto](fotos/linad11.png)
 ![foto](fotos/linad14.png)
 
-16. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.    
+16. A més, cal comprovar al servidor Windows que l’equip Ubuntu apareix dins de la llista d’ordinadors a Active Directory. Aquesta comprovació final confirma que la unió al domini s’ha realitzat correctament i que l’Ubuntu forma part de la xarxa del domini.       
 ![foto](fotos/linad6.png)
 
 ---
 
 # Part 2 - Configuració de Servidor Web IIS amb Certificat SSL (SAN)
-
-Aquesta guia detalla el procés pas a pas per configurar un servidor web a Windows Server 2022, la resolució de noms mitjançant DNS i la implementació de seguretat HTTPS amb plantilles personalitzades.
 
 ## 1. Instal·lació i preparació del servei IIS
 
