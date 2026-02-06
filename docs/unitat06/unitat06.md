@@ -33,7 +33,7 @@ sudo systemctl status apache2
 # Habilitar Apache per iniciar automàticament
 sudo systemctl enable apache2
 ```
-4. En aquest pas, instal·larem el servidor de bases de dades MariaDB, que és una alternativa compatible i de codi obert a MySQL, clau per emmagatzemar la informació de les nostres aplicacions.
+4. En aquest pas, instal·larem el servidor de bases de dades MariaDB, que és una alternativa compatible i de codi obert a MySQL.
 ```bash
 # Instal·lar el servidor de base de dades MariaDB
 sudo apt install mariadb-server -y
@@ -41,7 +41,7 @@ sudo apt install mariadb-server -y
 ![foto](fotos/web5.png)
 ![foto](fotos/web6.png)
 
-5. Un cop instal·lat MariaDB, iniciarem el servei i executarem l'script de seguretat vital per eliminar configuracions insegures per defecte, com usuaris anònims o l'accés remot de root, i establirem una contrasenya per al root de la base de dades.
+5. Un cop instal·lat MariaDB, iniciarem el servei i executarem l'script de seguretat per eliminar configuracions insegures per defecte, com usuaris anònims o l'accés remot de root, i establirem una contrasenya per al root de la base de dades.
 ```bash
 # Iniciar el servei de MariaDB
 sudo systemctl start mariadb
@@ -57,7 +57,7 @@ sudo systemctl enable mariadb
 ![foto](fotos/web9.png)
 ![foto](fotos/web10.png)
 
-6. Per augmentar la seguretat, evitarem utilitzar l'usuari 'root' per a les aplicacions web diàries. Accedirem a la consola de MariaDB per crear un nou usuari específic amb la seva corresponent contrasenya segura.
+6. Per augmentar la seguretat, evitarem utilitzar l'usuari 'root'. Accedirem a la consola de MariaDB per crear un nou usuari específic.
 ```bash
 # Accedir al client de MariaDB
 sudo mariadb
@@ -117,7 +117,7 @@ nano php-projects/index.php
 ![foto](fotos/web21.png)
 ![foto](fotos/web22.png)
 
-12. Mapejarem el nom del teu domini local a la IP de la teva màquina (127.0.0.1) per accedir directament des del navegador.
+12. Mapejarem el nom del domini local a la IP de la teva màquina (127.0.0.1) per accedir directament des del navegador.
 ```bash
 # Editar el archivo hosts
 sudo nano /etc/hosts
