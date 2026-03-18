@@ -1,4 +1,4 @@
-# Documentació del projecte — Netejador d’Espai MD3 (Ubuntu)
+# Netejador d’Espai MD3 (Ubuntu)
 
 ## 1. Estructura de fitxers i carpetes
 Vaig organitzar el projecte en carpetes separades per mantenir-lo ordenat i fàcil d’entendre. La carpeta `modules` contenia totes les funcions de neteja i càlcul, mentre que la carpeta `ui` guardava els components visuals com les targetes, el gràfic i el navigation rail. També vaig crear la carpeta `theme` per tenir els fitxers d’estil MD3 en mode clar i fosc.
