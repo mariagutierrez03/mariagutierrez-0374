@@ -14,6 +14,7 @@ Vaig organitzar el projecte en carpetes separades per mantenir-lo ordenat i fàc
 | `main.py` | Arrel del projecte | Control de la interfície |
 
 <img width="563" height="232" alt="image" src="https://github.com/user-attachments/assets/529055c6-0d95-49bf-85ba-d0903b1f7112" />
+<img width="563" height="622" alt="image" src="https://github.com/user-attachments/assets/ec82c19a-77c0-4053-a83b-dba5080176c0" />
 
 ---
 
