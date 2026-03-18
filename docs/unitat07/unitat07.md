@@ -30,6 +30,10 @@ Per crear l’aplicació només vaig necessitar Python 3 i el paquet PyQt5, que 
 | Permisos root | No | Tot funcionava amb permisos normals |
 | APT / Snap / Paperera | Sí | Ordres per netejar espai |
 
+<img width="563" height="142" alt="image" src="https://github.com/user-attachments/assets/268f4fd8-0b4e-40d5-994f-572e17be50b5" />
+<img width="620" height="301" alt="image" src="https://github.com/user-attachments/assets/72585b54-62e2-463f-9378-4702c3fbd566" />
+
+
 ---
 
 # 3. Funció de cada fitxer creat
