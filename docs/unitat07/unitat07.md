@@ -33,10 +33,41 @@ Per crear l’aplicació només vaig necessitar Python 3 i el paquet PyQt5, que 
 <img width="563" height="142" alt="image" src="https://github.com/user-attachments/assets/268f4fd8-0b4e-40d5-994f-572e17be50b5" />
 <img width="620" height="301" alt="image" src="https://github.com/user-attachments/assets/72585b54-62e2-463f-9378-4702c3fbd566" />
 
+---
+
+# 3. Funcionament del programa
+
+Aquesta és la imatge de com es veu el programa just quan l'obres per primera vegada. El cercle de la part superior dreta t'indica que el teu disc està al 56% de la seva capacitat, i el quadre de text de sota t'avisa que l'aplicació ja està "iniciada" i a punt perquè comencis a netejar el teu ordinador.
+<img width="791" height="190" alt="image" src="https://github.com/user-attachments/assets/04deb111-8b66-4237-8d3e-7835d6f64d3b" />
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/883ae016-c885-4407-a726-f199d0e28c29" />
+
+El sistema "APT" és el que fa servir l'ordinador per instal·lar programes, i sovint queden fitxers d'instal·lació antics que ja no calen. En aquesta foto veiem com el programa acaba de fer aquesta neteja i ens informa a la llista de text que tot el procés s'ha completat correctament i amb èxit.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/bc5856c7-34a4-4632-ae65-7b8a546f042a" />
+
+Ubuntu utilitza un sistema anomenat "Snap" per a les aplicacions, que de vegades guarda còpies velles que ocupen espai inútilment. En prémer aquest botó, el programa busca aquestes restes i les elimina; veuràs un avís a la pantalla confirmant que has recuperat una part del teu disc gràcies a aquesta acció.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/b8aa3496-ee14-43de-970c-5e524ad0a9b5" />
+
+Els fitxers temporals o "/tmp" són arxius que l'ordinador crea per un moment i que després ja no serveixen per a res. Amb aquest botó els esborres de forma segura i, com es veu a la imatge, el programa et confirma a l'instant que la neteja s'ha completat sense cap error.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/d176fcd5-24ee-4e2b-acbd-a43454d42a7a" />
+
+Aquesta és la pantalla principal on pots triar què vols netejar exactament per guanyar espai. En aquesta captura es veu com, després de prémer els botons, el programa t'avisa que ha acabat de buidar la paperera i de netejar els fitxers temporals, confirmant que tot ha anat bé amb un missatge clar.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/5d2192d0-66e5-4c14-8c4f-c08529b485db" />
+
+Si no vols anar botó per botó, pots prémer "Neteja completa" per fer-ho tot de cop i estalviar temps. L'aplicació t'informarà a la llista de sota de cada pas que fa i, al final, et traurà un avís negre on podràs llegir quants gigabytes (GB) de memòria has aconseguit recuperar.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/8c9bd3f2-2c21-45c5-b2cf-c786dfc5a998" />
+
+Aquí el programa t'ajuda a trobar les coses que pesen més i que potser ja no necessites. Quan prems el botó d'escanejar, l'aplicació busca per tot l'ordinador, si no troba cap fitxer que ocupi molt d'espai, t'ho indicarà amb el missatge "No s’han trobat fitxers grans" per quedar-te tranquil.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/14581188-5b76-42ef-b6d7-a72da7fbfe44" />
+
+Aquest apartat serveix per veure d'un cop d'ull quant espai està ocupant tot el que tens guardat a l'ordinador. Et mostra una xifra gran, com ara "13.43 GB", i si prems el botó blau de "Actualitza informació", el programa torna a calcular l'espai per si has esborrat alguna cosa fa poc.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/a7b991d1-28ed-48c9-908a-f534dad20012" />
+
+En aquesta pantalla pots personalitzar com es veu l'aplicació al teu gust. L'opció principal és el "Mode fosc", que canvia el fons a color negre per descansar la vista i estalviar bateria, quan l'actives, apareix un petit avís que diu "Tema actualitzat" per confirmar que el canvi s'ha fet correctament. En cas de desactivar-la apareix en mode clar, amb fons de color blau cel.
+<img width="816" height="938" alt="image" src="https://github.com/user-attachments/assets/724a1c3a-a5c2-44d7-8171-777e29b7e101" />
 
 ---
 
-# 3. Funció de cada fitxer creat
+# 4. Funció de cada fitxer creat
 
 ## main.py
 Aquest fitxer controla tota la interfície gràfica i la navegació entre pestanyes. Gestiona els botons, el navigation rail, el botó flotant i el snackbar. També crea i coordina els fils de treball perquè l’aplicació no es bloquegi durant les neteges.
