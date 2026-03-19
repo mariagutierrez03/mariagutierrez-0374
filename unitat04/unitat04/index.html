@@ -1,0 +1,2198 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://james-willett.github.io/mkdocs-material-youtube-tutorial/unitat04/unitat04/">
+      
+      
+        <link rel="prev" href="../../unitat03/unitat03/">
+      
+      
+        <link rel="next" href="../../unitat05/unitat05/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Unitat 4. RSAT, VPN i RDP - MkDocs Maria Gutierrez</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-1-configuracio-de-la-base-i-active-directory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="MkDocs Maria Gutierrez" class="md-header__button md-logo" aria-label="MkDocs Maria Gutierrez" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MkDocs Maria Gutierrez
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Unitat 4. RSAT, VPN i RDP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Introducció
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../projecte/projecte/" class="md-tabs__link">
+          
+  
+  
+  Projecte
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat01/unitat01/" class="md-tabs__link">
+          
+  
+  
+  Unitat01
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat02/unitat02/" class="md-tabs__link">
+          
+  
+  
+  Unitat02
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat03/unitat03/" class="md-tabs__link">
+          
+  
+  
+  Unitat03
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Unitat04
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat05/unitat05/" class="md-tabs__link">
+          
+  
+  
+  Unitat05
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat06/unitat06/" class="md-tabs__link">
+          
+  
+  
+  Unitat06
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat07/unitat07/" class="md-tabs__link">
+          
+  
+  
+  Unitat07
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat08/unitat08/" class="md-tabs__link">
+          
+  
+  
+  Unitat08
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat09/unitat09/" class="md-tabs__link">
+          
+  
+  
+  Unitat09
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat10/unitat10/" class="md-tabs__link">
+          
+  
+  
+  Unitat10
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat11/unitat11/" class="md-tabs__link">
+          
+  
+  
+  Unitat11
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat12/unitat12/" class="md-tabs__link">
+          
+  
+  
+  Unitat12
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../unitat13/unitat13/" class="md-tabs__link">
+          
+  
+  
+  Unitat13
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="MkDocs Maria Gutierrez" class="md-nav__button md-logo" aria-label="MkDocs Maria Gutierrez" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    MkDocs Maria Gutierrez
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introducció
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projecte
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projecte
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../projecte/projecte/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projecte
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat01
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat01
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat01/unitat01/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 1. Creació entorn d'arrencada amb systemd Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat02
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat02
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat02/unitat02/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 2. Configuració d'inici amb serveis personalitzats Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat03
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat03
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat03/unitat03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 3. Gestió de kernels i mòduls del sistema Linux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat04
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat04
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 4. RSAT, VPN i RDP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 4. RSAT, VPN i RDP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#part-1-configuracio-de-la-base-i-active-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 1 - Configuració de la base i Active Directory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-gestio-dusuaris" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 - Gestió d'usuaris
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-unir-el-client-al-domini" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 - Unir el client al domini
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-4-configuracio-del-servidor-de-fitxers-comparticio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 4 - Configuració del servidor de fitxers (Compartició)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-5-installacio-i-configuracio-del-servidor-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 5 - Instal·lació i configuració del servidor VPN
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat05
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat05
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat05/unitat05/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 5. Automatització funcional adaptada al context d'ús Windows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat06
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat06
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat06/unitat06/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat 6. LAMP a Linux Ubuntu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat07
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat07
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat07/unitat07/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Netejador d’Espai MD3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat08
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat08
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat08/unitat08/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat08
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat09
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat09
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat09/unitat09/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat09
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat10
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat10
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat10/unitat10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat10
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat11
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat11
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat11/unitat11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat12
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat12
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat12/unitat12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat12
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat13
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Unitat13
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../unitat13/unitat13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unitat13
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Unitat 4. RSAT, VPN i RDP</h1>
+
+<hr />
+<h2 id="part-1-configuracio-de-la-base-i-active-directory">Part 1 - Configuració de la base i Active Directory</h2>
+<ol>
+<li>
+<p>Comencem per la instal·lació inicial del sistema operatiu Windows Server. Preparem la màquina virtual, assegurant-nos que els paràmetres de regió, teclat i idioma són els correctes, i confirmem que el sistema està preparada per rebre els rols d'infraestructura. Afegim un nou disc de 20 GB, desactivem el firewall i canviem el nom de l'ordinador a MARIA.   <br />
+<img alt="foto" src="../fotos/winVPN1.png" />
+<img alt="foto" src="../fotos/winVPN2.png" />
+<img alt="foto" src="../fotos/winVPN3.png" /></p>
+</li>
+<li>
+<p>Seguidament, realitzem la configuració de xarxa. Assignem al primer adaptador una adreça IP estàtica al servidor (per exemple, 192.168.2.101), definint la màscara de subxarxa i la porta d'enllaç, per tal d'establir una base sòlida per al Controlador de Domini. Al segon adaptador li assignem l'adreça ip 10.10.1.1, aquesta simula la xarxa externa.  <br />
+<img alt="foto" src="../fotos/winVPN4.png" />
+<img alt="foto" src="../fotos/winVPN5.png" />
+<img alt="foto" src="../fotos/winVPN6.png" /></p>
+</li>
+<li>
+<p>A continuació, instal·lem el rol de Serveis de Domini d'Active Directory (AD DS) a través de l'Administrador del Servidor. Seleccionem amb cura els components necessaris, preparant la màquina per a la promoció a Controlador de Domini.  <br />
+<img alt="foto" src="../fotos/winVPN7.png" />
+<img alt="foto" src="../fotos/winVPN8.png" />
+<img alt="foto" src="../fotos/winVPN9.png" />
+<img alt="foto" src="../fotos/winVPN10.png" />
+<img alt="foto" src="../fotos/winVPN11.png" />
+<img alt="foto" src="../fotos/winVPN12.png" />
+<img alt="foto" src="../fotos/winVPN13.png" />
+<img alt="foto" src="../fotos/winVPN14.png" /></p>
+</li>
+<li>
+<p>Un cop instal·lats els rols, promovem el servidor a Controlador de Domini. Triem l'opció de Crear un nou bosc i introduïm el nom del nostre domini (per exemple, MARIA.local), establert la nova autoritat d'autenticació a la xarxa.  <br />
+<img alt="foto" src="../fotos/winVPN15.png" /></p>
+</li>
+<li>
+<p>Configurem les opcions de Controladora de Domini (DC) i els Nivells Funcionals del bosc i del domini. Introduïm la contrasenya del mode de restauració de serveis de directori (DSRM) i revisem les rutes dels fitxers de la base de dades d'Active Directory.  <br />
+<img alt="foto" src="../fotos/winVPN16.png" /></p>
+</li>
+<li>
+<p>Revisem el nom del NetBIOS i les opcions addicionals que ens ofereix l'assistent. Comprovem que la instal·lació està a punt per començar i, un cop es confirma, iniciem el procés de promoció, que culminarà amb el reinici del servidor.  <br />
+<img alt="foto" src="../fotos/winVPN17.png" />
+<img alt="foto" src="../fotos/winVPN18.png" />
+<img alt="foto" src="../fotos/winVPN19.png" />
+<img alt="foto" src="../fotos/winVPN20.png" />
+<img alt="foto" src="../fotos/winVPN21.png" />
+<img alt="foto" src="../fotos/winVPN22.png" />
+<img alt="foto" src="../fotos/winVPN23.png" /></p>
+</li>
+<li>
+<p>Després del reinici, verifiquem que el domini s'ha creat correctament i que podem accedir als contenidors d'usuaris i equips per començar l'estructuració.  <br />
+<img alt="foto" src="../fotos/winVPN24.png" /></p>
+</li>
+<li>
+<p>Creem l'estructura d'Unitats Organitzatives (OUs) necessària per a la gestió jeràrquica del nostre servidor (per exemple, OU de "ASIX").  <br />
+<img alt="foto" src="../fotos/winVPN25.png" /></p>
+</li>
+</ol>
+<hr />
+<h2 id="part-2-gestio-dusuaris">Part 2 - Gestió d'usuaris</h2>
+<ol>
+<li>Afegim els Usuaris de domini (per exemple, user1, user2) a OU "ASIX". Assignem-los la contrasenya inicial i configurem les opcions de canvi de contrasenya.  <br />
+<img alt="foto" src="../fotos/winVPN26.png" />
+<img alt="foto" src="../fotos/winVPN27.png" />
+<img alt="foto" src="../fotos/winVPN28.png" />
+<img alt="foto" src="../fotos/winVPN29.png" /></li>
+</ol>
+<h2 id="part-3-unir-el-client-al-domini">Part 3 - Unir el client al domini</h2>
+<ol>
+<li>
+<p>Accedim a la màquina client (Windows 10 o similar) i configurem les propietats de xarxa. Ens assegurem que la seva configuració DNS apunten al Controlador de Domini per permetre la resolució de noms del domini i que el firewall està desactivat.  <br />
+<img alt="foto" src="../fotos/winVPN30.png" />
+<img alt="foto" src="../fotos/winVPN31.png" />
+<img alt="foto" src="../fotos/winVPN32.png" />
+<img alt="foto" src="../fotos/winVPN33.png" /></p>
+</li>
+<li>
+<p>Unim la màquina client al domini d'Active Directory. Introduïm el nom del domini i les credencials d'un usuari amb privilegis per unir equips, iniciant el procés d'incorporació a la xarxa corporativa.  <br />
+<img alt="foto" src="../fotos/winVPN34.png" />
+<img alt="foto" src="../fotos/winVPN35.png" />
+<img alt="foto" src="../fotos/winVPN36.png" />
+<img alt="foto" src="../fotos/winVPN38.png" />
+<img alt="foto" src="../fotos/winVPN39.png" /></p>
+</li>
+<li>
+<p>Un cop reincorporada al domini, iniciem la sessió a la màquina client amb un usuari de domini estàndard (per exemple, user1). Això verifica que l'autenticació d'Active Directory funciona correctament. A més també comprovem que al servidor apareix l'ordinador client connectat.   <br />
+<img alt="foto" src="../fotos/winVPN40.png" />
+<img alt="foto" src="../fotos/winVPN41.png" /></p>
+</li>
+</ol>
+<hr />
+<h2 id="part-4-configuracio-del-servidor-de-fitxers-comparticio">Part 4 - Configuració del servidor de fitxers (Compartició)</h2>
+<ol>
+<li>
+<p>Accedim al disc de 20GB addicional (afegit prèviament), el formatem al "Administrador de discos" en el servidor.  <br />
+<img alt="foto" src="../fotos/winVPN42.png" />
+<img alt="foto" src="../fotos/winVPN43.png" />
+<img alt="foto" src="../fotos/winVPN44.png" />
+<img alt="foto" src="../fotos/winVPN45.png" />
+<img alt="foto" src="../fotos/winVPN46.png" /></p>
+</li>
+<li>
+<p>Seguidament creem dues carpetes una per a user1 i l'altra per a user2. Aquestes contenen fitxers dins, per fer proves d'accés posteriorment.   <br />
+<img alt="foto" src="../fotos/winVPN49.png" />
+<img alt="foto" src="../fotos/winVPN48.png" />
+<img alt="foto" src="../fotos/winVPN47.png" /></p>
+</li>
+<li>
+<p>Apliquem els permisos NTFS detallats. Afegim els usuaris corresponents segons la carpeta (per exemple, "user1" a la capeta user1) amb permisos de "Modificar" i "Lectura i Execució" segons correspongui, garantint el control de l'accés.  <br />
+<img alt="foto" src="../fotos/winVPN50.png" />
+<img alt="foto" src="../fotos/winVPN51.png" />
+<img alt="foto" src="../fotos/winVPN52.png" /></p>
+</li>
+<li>
+<p>Configurem la Compartició Avançada de la carpeta. Li assignem un nom de compartició clar (per exemple, user1) i limitem el nombre d'usuaris concurrents si és necessari.  <br />
+<img alt="foto" src="../fotos/winVPN56.png" />
+<img alt="foto" src="../fotos/winVPN57.png" /></p>
+</li>
+<li>
+<p>Seguidament, realitzarem el mateix procés en l'altra carpeta amb l'usuari user2.   <br />
+<img alt="foto" src="../fotos/winVPN54.png" />
+<img alt="foto" src="../fotos/winVPN58.png" /></p>
+</li>
+<li>
+<p>Verifiquem la ruta UNC de la carpeta compartida. Dins dels usuaris del Active Directory en Propietats, dins de l'apartat Perfil, clicarem en connectar, escollirem una lletra i utilitzant la ruta (\NomServidor\NomCompartició), així els usuaris podran tindre acces al rescurs compartit.  <br />
+<img alt="foto" src="../fotos/winVPN59.png" />
+<img alt="foto" src="../fotos/winVPN62.png" /></p>
+</li>
+<li>
+<p>Fem una prova d'accés amb un usuari de domini per assegurar-nos que els permisos NTFS i de Compartició permeten o deneguen l'accés correctament. Com podem observar en apareix l'ubicació de xarxa de forma automàtica i corresponent en la carpeta adequada segons l'usuari.   <br />
+<img alt="foto" src="../fotos/winVPN60.png" />
+<img alt="foto" src="../fotos/winVPN61.png" />
+<img alt="foto" src="../fotos/winVPN63.png" /></p>
+</li>
+</ol>
+<hr />
+<h2 id="part-5-installacio-i-configuracio-del-servidor-vpn">Part 5 - Instal·lació i configuració del servidor VPN</h2>
+<ol>
+<li>
+<p>Instal·lem el rol de Serveis d'Accés i Directives de Xarxes (NPS) al servidor VPN. Aquest rol ens permetrà configurar l'Encaminament i Accés Remot (RRAS) i, opcionalment, gestionar l'autenticació amb RADIUS.
+<img alt="foto" src="../fotos/winVPN64.png" />
+<img alt="foto" src="../fotos/winVPN65.png" />
+<img alt="foto" src="../fotos/winVPN66.png" />
+<img alt="foto" src="../fotos/winVPN67.png" />
+<img alt="foto" src="../fotos/winVPN68.png" /></p>
+</li>
+<li>
+<p>Seleccionem l'opció Accés Remot dins dels Serveis de Rol. Això instal·larà el component clau que permet establir connexions de xarxa privades virtuals (VPN) i rutejar el trànsit.  <br />
+<img alt="foto" src="../fotos/winVPN69.png" />
+<img alt="foto" src="../fotos/winVPN70.png" />
+<img alt="foto" src="../fotos/winVPN71.png" /></p>
+</li>
+<li>
+<p>Un cop instal·lat el rol, obrim la consola Encaminament i Accés Remot. Iniciem l'assistent de configuració i seleccionem l'opció de Configurar i Habilitar Encaminament i Accés Remot.  <br />
+<img alt="foto" src="../fotos/winVPN73.png" /></p>
+</li>
+<li>
+<p>Triem la configuració per a Accés Remot (Connexió de Marcatge o VPN) a l'assistent. Això permet que els usuaris externs es puguin connectar al servidor per accedir a la xarxa interna.  <br />
+<img alt="foto" src="../fotos/winVPN74.png" />
+<img alt="foto" src="../fotos/winVPN75.png" />
+<img alt="foto" src="../fotos/winVPN76.png" /></p>
+</li>
+<li>
+<p>Seleccionem la Interfície de Xarxa Externa que utilitzarem per escoltar les peticions VPN entrants. És crucial que identifiquem correctament la interfície connectada a la xarxa pública.  <br />
+<img alt="foto" src="../fotos/winVPN77.png" /></p>
+</li>
+<li>
+<p>Establirem el mètode d'assignació d'adreces IP per als clients VPN. Triem l'opció de "Un rang d'adreces especificat" i definirem un conjunt d'IPs (per exemple, de 172.16.0.0 a 172.16.0.10).  <br />
+<img alt="foto" src="../fotos/winVPN78.png" /></p>
+</li>
+<li>
+<p>Definim el rang d'adreces IP que seran assignades als clients que es connectin per VPN. Introduïm la IP inicial i final del rang, assegurant-nos que estan dins de la subxarxa interna i no entren en conflicte amb DHCP.  <br />
+<img alt="foto" src="../fotos/winVPN82.png" />
+<img alt="foto" src="../fotos/winVPN83.png" /></p>
+</li>
+<li>
+<p>Tot seguit, l'assistent de configuració. Comprovem que el servei RRAS està iniciat i que la icona del servidor mostra un estel verd, indicant que està operatiu i esperant connexions.  <br />
+<img alt="foto" src="../fotos/winVPN79.png" />
+<img alt="foto" src="../fotos/winVPN80.png" />
+<img alt="foto" src="../fotos/winVPN87.png" /></p>
+</li>
+<li>
+<p>Accedim a les Propietats del adaptador de xarxa Externa i desactivarem totes les opcions menys les mostrades a la captura.  <br />
+<img alt="foto" src="../fotos/winVPN84.png" /></p>
+</li>
+<li>
+<p>Finalment, configurem els usuaris del Active Directory. Ens assegurem que al apartat Marcado està habilitada l'opció Permitir acceso del apartat Permiso de acceso a redes.  <br />
+<img alt="foto" src="../fotos/winVPN86.png" />
+<img alt="foto" src="../fotos/winVPN85.png" /></p>
+</li>
+</ol>
+<hr />
+<p>Part 6 - Configuració de la VPN al client</p>
+<ol>
+<li>
+<p>Creem la nova connexió VPN a la màquina client. Introduïm l'adreça IP o el nom de domini públic del servidor VPN i seleccionem el tipus de protocol que hem configurat (per exemple, L2TP/IPSec).  <br />
+<img alt="foto" src="../fotos/winVPN81.png" />
+<img alt="foto" src="../fotos/winVPN89.png" />
+<img alt="foto" src="../fotos/winVPN90.png" />
+<img alt="foto" src="../fotos/winVPN91.png" />
+<img alt="foto" src="../fotos/winVPN92.png" />
+<img alt="foto" src="../fotos/winVPN93.png" />
+<img alt="foto" src="../fotos/winVPN94.png" /></p>
+</li>
+<li>
+<p>Establirem la connexió VPN introduint les credencials de l'usuari de domini. Observem el procés d'establiment del túnel, esperant el missatge de "Connectat".  <br />
+<img alt="foto" src="../fotos/winVPN95.png" />
+<img alt="foto" src="../fotos/winVPN96.png" />
+<img alt="foto" src="../fotos/winVPN97.png" />
+<img alt="foto" src="../fotos/winVPN98.png" /></p>
+</li>
+<li>
+<p>Un cop connectats per VPN, busquem a l'apartat Red el recurs compartit, en el format '\IP_SERVIDOR_INTERNA\NOM_RECURS_COMPARTIT'. Una vegada dins comprovarem que podem crear una carpeta, per lo tant confirma que hi ha permissos de lectura i escriptura. A més a més provarem de accedir a una carpeta en la que no tenin permissos i veurem que el resultat és que Windows mostra un missatge bloquejant l'accés.    <br />
+<img alt="foto" src="../fotos/winVPN99.png" />
+<img alt="foto" src="../fotos/winVPN100.png" />
+<img alt="foto" src="../fotos/winVPN101.png" /></p>
+</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://mariagutierrez03.github.io/mkdocs-maria-gutierrez/">Mkdocs</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/mariagutierrez03">Maria Gutierrez</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy", "content.code.download"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
