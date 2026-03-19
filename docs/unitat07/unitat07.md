@@ -35,7 +35,7 @@ Per crear l’aplicació només vaig necessitar Python 3 i el paquet PyQt5, que 
 
 ---
 
-# 3. Funcionament del programa
+## 3. Funcionament del programa
 
 Aquesta és la imatge de com es veu el programa just quan l'obres per primera vegada. El cercle de la part superior dreta t'indica que el teu disc està al 56% de la seva capacitat, i el quadre de text de sota t'avisa que l'aplicació ja està "iniciada" i a punt perquè comencis a netejar el teu ordinador.                
 <img width="791" height="190" alt="image" src="https://github.com/user-attachments/assets/04deb111-8b66-4237-8d3e-7835d6f64d3b" />
@@ -67,7 +67,7 @@ En aquesta pantalla pots personalitzar com es veu l'aplicació al teu gust. L'op
 
 ---
 
-# 4. Funció de cada fitxer creat
+## 4. Funció de cada fitxer creat
 
 ## main.py
 Aquest fitxer controla tota la interfície gràfica i la navegació entre pestanyes. Gestiona els botons, el navigation rail, el botó flotant i el snackbar. També crea i coordina els fils de treball perquè l’aplicació no es bloquegi durant les neteges.
