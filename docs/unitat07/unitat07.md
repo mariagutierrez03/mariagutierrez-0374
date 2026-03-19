@@ -1,4 +1,4 @@
-# Netejador d’Espai MD3 (Ubuntu)
+# Netejador d’Espai MD3
 
 ## 1. Estructura de fitxers i carpetes
 Vaig organitzar el projecte en carpetes separades per mantenir-lo ordenat i fàcil d’entendre. La carpeta `modules` contenia totes les funcions de neteja i càlcul, mentre que la carpeta `ui` guardava els components visuals com les targetes, el gràfic i el navigation rail. També vaig crear la carpeta `theme` per tenir els fitxers d’estil MD3 en mode clar i fosc.
@@ -13,8 +13,18 @@ Vaig organitzar el projecte en carpetes separades per mantenir-lo ordenat i fàc
 | `icons/` | Icones SVG | Icones del navigation rail i FAB |
 | `main.py` | Arrel del projecte | Control de la interfície |
 
+
+### UBUNTU
 <img width="563" height="232" alt="image" src="https://github.com/user-attachments/assets/529055c6-0d95-49bf-85ba-d0903b1f7112" />
 <img width="563" height="622" alt="image" src="https://github.com/user-attachments/assets/ec82c19a-77c0-4053-a83b-dba5080176c0" />
+
+### WINDOWS
+<img width="782" height="315" alt="Captura de pantalla de 2026-03-19 17-17-33" src="https://github.com/user-attachments/assets/bc48f4e7-8aea-4cd4-b439-6b108fc703ab" />
+<img width="782" height="379" alt="Captura de pantalla de 2026-03-19 17-17-40" src="https://github.com/user-attachments/assets/37ee4685-3a42-4585-a6ae-65dd8ce3ae52" />
+<img width="782" height="292" alt="Captura de pantalla de 2026-03-19 17-17-49" src="https://github.com/user-attachments/assets/e48d00f9-edb3-4740-9e3d-7fd0d1c1a118" />
+<img width="782" height="352" alt="Captura de pantalla de 2026-03-19 17-17-57" src="https://github.com/user-attachments/assets/55bfcfd6-0b9f-464e-8258-061af9dbdd4f" />
+
+
 
 ---
 
@@ -30,8 +40,14 @@ Per crear l’aplicació només vaig necessitar Python 3 i el paquet PyQt5, que 
 | Permisos root | No | Tot funcionava amb permisos normals |
 | APT / Snap / Paperera | Sí | Ordres per netejar espai |
 
+### UBUNTU
 <img width="563" height="142" alt="image" src="https://github.com/user-attachments/assets/268f4fd8-0b4e-40d5-994f-572e17be50b5" />
 <img width="620" height="301" alt="image" src="https://github.com/user-attachments/assets/72585b54-62e2-463f-9378-4702c3fbd566" />
+
+### WINDOWS
+<img width="666" height="413" alt="Captura de pantalla de 2026-03-19 15-17-41" src="https://github.com/user-attachments/assets/8d2058b2-8899-4a88-84b3-60aada424310" />
+<img width="737" height="502" alt="Captura de pantalla de 2026-03-19 15-37-30" src="https://github.com/user-attachments/assets/e8a50e0d-da9c-454e-9195-6106b0c09e59" />
+<img width="640" height="416" alt="Captura de pantalla de 2026-03-19 15-37-46" src="https://github.com/user-attachments/assets/7c128ba7-cb8b-45bc-99d4-a33d3496c7af" />
 
 ---
 
@@ -509,6 +525,8 @@ Aquest fitxer calcula l’espai utilitzat i total del disc i ofereix funcions b�
 |--------|--------|
 | `core_utils.py` | Càlcul d’espai i utilitats |
 
+### UBUNTU
+
 ```
 import shutil
 import os
@@ -547,6 +565,41 @@ def get_disk_total():
     return total / (1024**3)
 ```
 
+### WINDOWS
+```
+import psutil
+import os
+from datetime import datetime
+
+# Fitxer de registre al directori de l’usuari (Windows)
+LOG_FILE = os.path.join(os.path.expanduser("~"), "neteja_md3.log")
+
+def log(text):
+    """Escriu al log del sistema i al fitxer."""
+    timestamp = datetime.now().strftime("[%Y-%m-%d %H:%M:%S]")
+    line = f"{timestamp} {text}"
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except:
+        pass
+    print(line)
+
+def format_gb(value):
+    """Converteix bytes a GB amb 2 decimals."""
+    return f"{value:.2f} GB"
+
+def get_disk_usage():
+    """Retorna l’espai utilitzat en GB del disc C:."""
+    usage = psutil.disk_usage("C:\\")
+    return usage.used / (1024**3)
+
+def get_disk_total():
+    """Retorna la capacitat total del disc C: en GB."""
+    usage = psutil.disk_usage("C:\\")
+    return usage.total / (1024**3)
+```
+
 ---
 
 ## modules/apt_cleaner.py
@@ -556,6 +609,7 @@ Aquest fitxer neteja la memòria cau d’APT i els paquets que ja no serveixen. 
 |--------|--------|
 | `apt_cleaner.py` | Neteja de paquets APT |
 
+### UBUNTU
 ```
 import subprocess
 from modules.core_utils import log
@@ -602,6 +656,17 @@ def _get_apt_cache_size():
 
 ```
 
+### WINDOWS
+```
+from modules.core_utils import log
+
+def clean_apt(dry_run=False):
+    """APT no existeix a Windows. Retorna 0 GB."""
+    log("APT no està disponible a Windows.")
+    return 0.0
+
+```
+
 ---
 
 ## modules/snap_cleaner.py
@@ -611,6 +676,7 @@ Aquest fitxer elimina versions antigues de paquets Snap. Manté el codi ordenat 
 |--------|--------|
 | `snap_cleaner.py` | Neteja de Snap |
 
+### UBUNTU
 ```
 import subprocess
 from modules.core_utils import log
@@ -638,6 +704,17 @@ def clean_snap(dry_run=False):
 
 ```
 
+### WINDOWS
+```
+from modules.core_utils import log
+
+def clean_snap(dry_run=False):
+    """Snap no existeix a Windows. Retorna 0 GB."""
+    log("Snap no està disponible a Windows.")
+    return 0.0
+
+```
+
 ---
 
 ## modules/trash_cleaner.py
@@ -647,6 +724,7 @@ Aquest fitxer buida la paperera de l’usuari. Recorre els fitxers i els elimina
 |--------|--------|
 | `trash_cleaner.py` | Buidar la paperera |
 
+### UBUNTU
 ```
 import os
 import shutil
@@ -687,6 +765,45 @@ def clean_trash(dry_run=False):
 
 ```
 
+### WINDOWS
+```
+import os
+from modules.core_utils import log
+
+def clean_trash(dry_run=False):
+    """Buida la paperera de Windows. Retorna espai alliberat en GB."""
+    recycle_bin = os.path.expandvars(r"C:\$Recycle.Bin")
+    freed = 0
+
+    if not os.path.exists(recycle_bin):
+        log("No s'ha trobat la paperera de Windows.")
+        return 0.0
+
+    log("Netejant la paperera de Windows...")
+
+    for root, dirs, files in os.walk(recycle_bin):
+        for name in files:
+            fpath = os.path.join(root, name)
+            try:
+                size = os.path.getsize(fpath)
+                freed += size
+                if not dry_run:
+                    os.remove(fpath)
+            except:
+                pass
+
+        for name in dirs:
+            dpath = os.path.join(root, name)
+            try:
+                if not dry_run:
+                    os.rmdir(dpath)
+            except:
+                pass
+
+    return freed / (1024**3)
+
+```
+
 ---
 
 ## modules/tmp_cleaner.py
@@ -696,6 +813,7 @@ Aquest fitxer neteja el directori `/tmp`, que acumula fitxers temporals. Està s
 |--------|--------|
 | `tmp_cleaner.py` | Neteja del directori /tmp |
 
+### UBUNTU
 ```
 import os
 import shutil
@@ -735,6 +853,42 @@ def clean_tmp(dry_run=False):
 
 ```
 
+### WINDOWS
+```
+import os
+import tempfile
+from modules.core_utils import log
+
+def clean_tmp(dry_run=False):
+    """Neteja el directori temporal de Windows (%TEMP%)."""
+    temp_dir = tempfile.gettempdir()
+    freed = 0
+
+    log(f"Netejant {temp_dir} ...")
+
+    for root, dirs, files in os.walk(temp_dir):
+        for name in files:
+            fpath = os.path.join(root, name)
+            try:
+                size = os.path.getsize(fpath)
+                freed += size
+                if not dry_run:
+                    os.remove(fpath)
+            except:
+                pass
+
+        for name in dirs:
+            dpath = os.path.join(root, name)
+            try:
+                if not dry_run:
+                    os.rmdir(dpath)
+            except:
+                pass
+
+    return freed / (1024**3)
+
+```
+
 ---
 
 ## modules/scan_large.py
@@ -744,6 +898,7 @@ Aquest fitxer busca fitxers grans dins la carpeta de l’usuari. Mostra quins ar
 |--------|--------|
 | `scan_large.py` | Escaneig de fitxers grans |
 
+### UBUNTU
 ```
 import os
 
@@ -757,6 +912,32 @@ def scan_large_files(path, min_size_gb=1.0):
     results = []
 
     for root, dirs, files in os.walk(path):
+        for name in files:
+            fpath = os.path.join(root, name)
+            try:
+                size = os.path.getsize(fpath)
+                if size >= min_bytes:
+                    results.append((fpath, size / (1024**3)))
+            except:
+                pass
+
+    results.sort(key=lambda x: x[1], reverse=True)
+    return results
+
+```
+
+### WINDOWS
+```
+import os
+
+def scan_large_files(path=None, min_size_gb=1.0):
+    """Escaneja fitxers grans a l’usuari de Windows."""
+    min_bytes = min_size_gb * (1024**3)
+    user_dir = os.path.expanduser("~") if path is None else path
+
+    results = []
+
+    for root, dirs, files in os.walk(user_dir):
         for name in files:
             fpath = os.path.join(root, name)
             try:
